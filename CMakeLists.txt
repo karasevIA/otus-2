@@ -2,7 +2,9 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name
-project(main)
+set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
+set(PROJECT_VESRION 0.1.${PATCH_VERSION})
+project(ip_worker VERSION ${PROJECT_VESRION})
 
 # Include lib conan test
 if(TEST)
@@ -44,4 +46,18 @@ if(TEST)
 
     # Link target with gtest
     target_link_libraries(${PROJECT_NAME}_tests ${CONAN_LIBS})
+    
+    # CI\CD
+    add_test(NAME ${PROJECT_NAME}_tests COMMAND ${PROJECT_NAME}_tests)
+    enable_testing()
+endif()
+
+if(DEBPACK)
+    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+    set(CPACK_GENERATOR DEB)
+    set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+    set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+    set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+    set(CPACK_PACKAGE_CONTACT karasev.ia@phystech.edu)
+    include(CPack)
 endif()
