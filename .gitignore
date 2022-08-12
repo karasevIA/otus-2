@@ -9,7 +9,6 @@
 !.gitignore
 !.clang-format
 !*.md
-!*.yml
 !*.cfg
 out/*
 build/*
