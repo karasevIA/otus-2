@@ -26,7 +26,7 @@ jobs:
         run: mkdir build && cd build && ls .. && conan install ..
 
       - name: Build
-        run: cd build .. && ls .. && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DTEST=true -DDEBPACK=true -DPATCH_VERSION=${{ github.run_number }} .. && cmake --build .
+        run: cd build && ls .. && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DTEST=true -DDEBPACK=true -DPATCH_VERSION=${{ github.run_number }} .. && cmake --build .
       
       - name: Tests
         run: cmake --build . --target test
