@@ -23,7 +23,7 @@ jobs:
         run: conan profile update settings.compiler.libcxx=libstdc++11 default
       
       - name: Prepair build
-        run: mkdir build && cd build && conan install ..  --install-folder=${{github.workspace}}/build
+        run: mkdir build && cd build && ls .. && conan install ..
 
       - name: Build
         run: ls .. && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DTEST=true -DDEBPACK=true -DPATCH_VERSION=${{ github.run_number }} .. && cmake --build .
