@@ -26,7 +26,7 @@ jobs:
         run: mkdir build && cd build && conan install ..  --install-folder=${{github.workspace}}/build
 
       - name: Build
-        run: cmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DTEST=true -DDEBPACK -DPATCH_VERSION=${{ github.run_number }} .. && cmake --build .
+        run: cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DTEST=true -DDEBPACK -DPATCH_VERSION=${{ github.run_number }} .. && cmake --build .
       
       - name: Tests
         run: cmake --build . --target test
