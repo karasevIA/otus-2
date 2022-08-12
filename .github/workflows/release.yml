@@ -16,7 +16,8 @@ jobs:
       - run: pip install conan
       - run: mkdir build
       - run: cd build
-      - run: conan install ../ -s build_type=Release
+      - run: conan profile update settings.compiler.libcxx=libstdc++11 default
+      - run: conan install ..
       - run: cmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DTEST=true -DDEBPACK -DPATCH_VERSION=${{ github.run_number }} ..
       - run: cmake --build .
       - run: cmake --build . --target test
