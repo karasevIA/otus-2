@@ -89,3 +89,54 @@ TEST(TestOperator, Check) {
     EXPECT_TRUE(ip < ip2);
     EXPECT_TRUE(ip < ip0);
 }
+
+TEST(TestGetByte, Check) {
+    // arange
+    ip_base  ip_(""s);
+    ip_base  ip0("1.0.0.0"s);
+    ip_base  ip1("0.1.0.0"s);
+    ip_base  ip2("0.0.1.0"s);
+    ip_base  ip3("0.0.0.1"s);
+
+    ip_base  ip100("1.10.10.10"s);
+    ip_base  ip101("10.1.10.10"s);
+    ip_base  ip102("10.10.1.10"s);
+    ip_base  ip103("10.10.10.1"s);
+
+    ip_base  ip2550("1.255.255.255"s);
+    ip_base  ip2551("255.1.255.255"s);
+    ip_base  ip2552("255.255.1.255"s);
+    ip_base  ip2553("255.255.255.1"s);
+
+    // act & assert
+    EXPECT_EQ(ip_.get_byte(0), 0);
+    EXPECT_EQ(ip_.get_byte(10), 0);
+    
+    EXPECT_EQ(ip0.get_byte(0), 1);
+    EXPECT_EQ(ip0.get_byte(1), 0);
+    EXPECT_EQ(ip0.get_byte(10), 0);
+
+    EXPECT_EQ(ip1.get_byte(1), 1);
+    EXPECT_EQ(ip2.get_byte(2), 1);
+    EXPECT_EQ(ip3.get_byte(3), 1);
+
+    EXPECT_EQ(ip100.get_byte(0), 1);
+    EXPECT_EQ(ip101.get_byte(1), 1);
+    EXPECT_EQ(ip102.get_byte(2), 1);
+    EXPECT_EQ(ip103.get_byte(3), 1);
+
+    EXPECT_EQ(ip100.get_byte(1), 10);
+    EXPECT_EQ(ip101.get_byte(2), 10);
+    EXPECT_EQ(ip102.get_byte(3), 10);
+    EXPECT_EQ(ip103.get_byte(0), 10);
+
+    EXPECT_EQ(ip2550.get_byte(0), 1);
+    EXPECT_EQ(ip2551.get_byte(1), 1);
+    EXPECT_EQ(ip2552.get_byte(2), 1);
+    EXPECT_EQ(ip2553.get_byte(3), 1);
+
+    EXPECT_EQ(ip2550.get_byte(1), 255);
+    EXPECT_EQ(ip2551.get_byte(2), 255);
+    EXPECT_EQ(ip2552.get_byte(3), 255);
+    EXPECT_EQ(ip2553.get_byte(0), 255);
+}

@@ -2,7 +2,6 @@
 #include <string>
 
 ip_base::ip_base(const std::string& s) noexcept {
-    const std::size_t byte_count = 4;
     std::size_t ip_string_len = 0;
     std::size_t last_pos = 0;
     try { 
@@ -17,7 +16,7 @@ ip_base::ip_base(const std::string& s) noexcept {
                 if (point_pos == std::string::npos) return; //"192.168.blabla"
                 if (point_pos  - last_pos > digits_pos) return; //"12.1aaav2.0.0" 
             }
-            ip_ += (ip_ << 8) + byte; //pack adress to uint32
+            ip_ = (ip_ << 8) + byte; //pack adress to uint32
             last_pos = point_pos + 1;
             ip_string_len += digits_pos + 1;
         }
@@ -26,7 +25,7 @@ ip_base::ip_base(const std::string& s) noexcept {
     } catch (...) {}
 }
 
-bool ip_base::operator<(const ip_base& b) noexcept {
+bool ip_base::operator<(const ip_base& b) const noexcept {
     if (this->empty_) {
         return true;
     }
@@ -39,4 +38,11 @@ const std::string ip_base::string() const noexcept {
 
 bool ip_base::empty() const noexcept{
     return empty_;
+}
+
+uint8_t ip_base::get_byte(std::size_t n) const noexcept {
+    if (!empty_ && n < byte_count) {
+        return ((uint8_t*)&ip_)[byte_count - n - 1];
+    }
+    return 0;
 }
