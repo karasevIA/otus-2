@@ -45,6 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.IP_SECRET }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/ip_worker-0.1.${{ github.run_number }}-Linux.deb
-          asset_name: ip_worker-0.1.${{ github.run_number }}-Linux.deb
+          asset_path: ./build/ip_filter-1.0.${{ github.run_number }}-Linux.deb
+          asset_name: ip_filter-1.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package

@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 # Project name
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 1.0.${PATCH_VERSION})
-project(ip_worker VERSION ${PROJECT_VESRION})
+project(ip_filter VERSION ${PROJECT_VESRION})
 
 # Include lib conan test
 if(TEST)
