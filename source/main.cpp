@@ -31,7 +31,7 @@ int main()
     }
 
     for (const auto& ip : ip_pool) {
-        if (ip.get_byte(0) == 46 && ip.get_byte(2) == 70) {
+        if (ip.get_byte(0) == 46 && ip.get_byte(1) == 70) {
             std::cout << ip.string() << std::endl;        
         }
     }
